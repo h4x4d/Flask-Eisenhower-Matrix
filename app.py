@@ -3,7 +3,7 @@ import random
 import string
 
 from flask import Flask, render_template, redirect, send_from_directory, \
-    jsonify, request
+    request
 
 from flask_login import LoginManager, login_required, login_user, logout_user, \
     current_user
@@ -274,6 +274,7 @@ def register():
             user = User()
             user.login = form.login.data
             user.set_password(form.password.data)
+            user.tokens = ''
             db_sess.add(user)
             db_sess.commit()
             login_user(user)
