@@ -1,12 +1,13 @@
 import requests
+from token_header import header
 
 files = {'file': open('test.txt', 'rb')}
 
-print(requests.post('http://192.168.1.44:5000/api/tasks',
+print(requests.post('http://flask-eisenhower-matrix.herokuapp.com/api/tasks',
                     files=files,
-                    headers={'token': '123'},
+                    headers=header,
                     data={
-                        'name': 'pupa',
+                        'name': 'Test task',
                         'is_important': True,
 
-                    }).text)
+                    }).json())
