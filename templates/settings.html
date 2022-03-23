@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}
+    <title>Настройки</title>
+{% endblock %}
+
+{% block content %}
+    <main class="container">
+    <div class="row">
+        <div class="col-6">
+                {% if token %}
+                    <div class="alert alert-primary" role="alert" id="successAlert">
+                          Ваш ключ для REST API: <p class="font-monospace">{{ token }}</p>
+                    </div>
+                {% elif deleted %}
+                    <div class="alert alert-success" role="alert" id="successAlert">
+                          Все ключи удалены.
+                    </div>
+                {% endif %}
+            <h3>Для работы с REST API необходим ключ:</h3>
+            <form method='post' id="rest_get" name="rest_get">
+
+                <button class="w-100 btn btn-lg btn-primary" type="submit" value="get_key" name="submit">Получить REST ключ</button>
+            </form>
+            <div style="height: 5px"></div>
+            <form action="" method="POST" id="rest_delete">
+                <button class="w-100 btn btn-lg btn-danger" type="submit" name="submit" value="delete_key">Удалить все ключи</button>
+            </form>
+        </div>
+            <div class="col-6">
+                {% if news_deleted %}
+                    <div class="alert alert-success" role="alert" id="successAlert">
+                          Все новости удалены.
+                    </div>
+                {% endif %}
+            <h3>Очистка новостей и выход:</h3>
+            <form method='post' id="rest_get" name="rest_get">
+                <button class="w-100 btn btn-lg btn-danger" type="submit" value="delete_news" name="submit">Удалить все новости</button>
+            </form>
+            <div style="height: 5px"></div>
+            <form action="" method="POST" id="rest_delete">
+                <button class="w-100 btn btn-lg btn-warning" type="submit" name="submit" value="exit">Выход</button>
+            </form>
+        </div>
+    </div>
+    </main>
+
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}
+    <title>Завершенные задачи</title>
+{% endblock %}
+
+{% block content %}
+    <main class="container">
+    <h2>Завершенные задачи:</h2>
+    {% for task in finished_tasks %}
+        <h3>{{ task.name }}</h3>
+        <h4>{{ task.description }}</h4>
+        <a class="btn btn-outline-danger" href="/delete/{{ task.id }}">Удалить задачу</a>
+        <div class="dropdown-divider"></div>
+    {% endfor %}
+    {% if not finished_tasks %}
+        <h4>У вас еще нет завершенных задач.</h4>
+    {% endif %}
+    </main>
+{% endblock %}

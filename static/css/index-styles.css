@@ -1,0 +1,40 @@
+.element-of-table {
+  display: inline-block;
+  position: relative;
+  width: 50%;
+}
+
+.elem {
+    margin-top: 100%;
+}
+
+.e {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.g-0 {
+  margin-top: 0;
+  margin-bottom: -16px;
+}
+
+.an-alert-0 {
+  border-radius: 20px 0 0 0;
+}
+.an-alert-1 {
+  border-radius: 0 20px 0 0;
+}
+.an-alert-2 {
+  border-radius: 0 0 20px 0;
+}
+.an-alert-3 {
+  border-radius: 0 0 0 20px;
+}
+
+.vertical-text {
+  transform: rotate(270deg);
+  transform-origin: left top 0;
+}

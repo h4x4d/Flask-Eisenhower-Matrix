@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}
+    <title>Ошибка 404</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index-styles.css') }}">
+{% endblock %}
+
+{% block content %}
+    <main class="container">
+        <h2>Тут ничего нет. Воспользуйтесь панелью выше, чтобы уйти отсюда.</h2>
+    </main>
+{% endblock %}

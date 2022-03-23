@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}
+    <title>Редактор задач | Матрица Эйзенхауэра</title>
+{% endblock %}
+
+{% block content %}
+    <main class="container">
+        <h1>{{ task.name }}</h1>
+        {%  if task.description %}
+            <h2>Описание: {{ task.description }}</h2>
+        {% endif %}
+        <h3>Статус: {{ status }}.</h3>
+
+        {% if task.filename %}
+            <a class="btn btn-primary" href="/attachment/{{ task.id }}" role="button">Прикрепленный файл</a>
+           <p></p>
+        {% endif %}
+    <div class="d-grid gap-2 d-md-block">
+            <a class="btn btn-outline-success" href="/finish/{{ task.id }}">Завершить задачу</a>
+            <a class="btn btn-outline-danger" href="/delete/{{ task.id }}">Удалить задачу</a>
+    </div>
+
+
+    </main>
+{% endblock %}

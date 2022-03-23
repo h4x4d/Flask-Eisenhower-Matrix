@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}
+    <title>Матрица Эйзенхауэра</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index-styles.css') }}">
+{% endblock %}
+
+{% block content %}
+    <main class="container">
+    <div class="row justify-content-center">
+    <div class="col-lg-8">
+    <div class="row g-0">
+            <div class="element-of-table">
+                <div class="elem">
+                    <div class="e alert alert-danger an-alert-0">
+                    <ul>
+                        {% for element in groups['important_urgent'] %}
+                            <li><a href="task/{{ element[0] }}">{{ element[1] }}</a></li>
+                        {% endfor %}
+                    </ul>
+                        </div>
+                    </ul>
+                </div>
+            </div>
+            <div class="element-of-table">
+                <div class="elem">
+                    <div class="e alert alert-success an-alert-1">
+                     <ul>
+                        {% for element in groups['important_non_urgent'] %}
+                            <li><a href="task/{{ element[0] }}">{{ element[1] }}</a></li>
+                        {% endfor %}
+                    </ul>
+                        </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+
+
+    <div class="row justify-content-center">
+    <div class="col-md-8">
+    <div class="row g-0">
+            <div class="element-of-table">
+                <div class="elem">
+                    <div class="e alert alert-warning an-alert-3">
+                     <ul>
+                        {% for element in groups['non_important_urgent'] %}
+                            <li><a href="task/{{ element[0] }}">{{ element[1] }}</a></li>
+                        {% endfor %}
+                    </ul>
+                        </div>
+                </div>
+            </div>
+            <div class="element-of-table">
+                <div class="elem">
+                    <div class="e alert alert-secondary an-alert-2">
+                    <ul>
+                        {% for element in groups['non_important_non_urgent'] %}
+                            <li><a href="task/{{ element[0] }}">{{ element[1] }}</a></li>
+                        {% endfor %}
+                    </ul>
+                        </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+
+    </main>
+{% endblock %}
