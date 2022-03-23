@@ -1,3 +1,4 @@
+import os
 import random
 import string
 
@@ -295,7 +296,8 @@ def page_not_found(e):
 
 def main():
     db_session.global_init(DB_PATH)
-    app.run(APP_TO_RUN)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host=APP_TO_RUN, port=port)
 
 
 if __name__ == '__main__':
