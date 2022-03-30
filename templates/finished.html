@@ -9,7 +9,9 @@
     <h2>Завершенные задачи:</h2>
     {% for task in finished_tasks %}
         <h3>{{ task.name }}</h3>
+        {% if task.description %}
         <h4>{{ task.description }}</h4>
+        {% endif %}
         <a class="btn btn-outline-danger" href="/delete/{{ task.id }}">Удалить задачу</a>
         <div class="dropdown-divider"></div>
     {% endfor %}
