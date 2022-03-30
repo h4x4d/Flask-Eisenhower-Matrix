@@ -7,13 +7,13 @@
 {% block content %}
     <main class="container">
     <div class="row">
-        <div class="col-6">
+        <div class="col-4">
                 {% if token %}
-                    <div class="alert alert-primary" role="alert" id="successAlert">
+                    <div class="alert alert-primary" role="alert">
                           Ваш ключ для REST API: <p class="font-monospace">{{ token }}</p>
                     </div>
                 {% elif deleted %}
-                    <div class="alert alert-success" role="alert" id="successAlert">
+                    <div class="alert alert-success" role="alert">
                           Все ключи удалены.
                     </div>
                 {% endif %}
@@ -27,22 +27,58 @@
                 <button class="w-100 btn btn-lg btn-danger" type="submit" name="submit" value="delete_key">Удалить все ключи</button>
             </form>
         </div>
-            <div class="col-6">
+        <div class="col-4">
+
+
+                <h3>Доступ к вашей матрице для других пользователей:</h3>
+
+                {% if current_user.link_status %}
+                <button type="button" class="w-100 btn btn-lg btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                  Получить ссылку
+                </button>
+
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Ссылка на вашу матрицу для всех</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        https://flask-eisenhower-matrix.herokuapp.com/users/{{ current_user.id }}
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                    <form action="" method="POST">
+                    <div style="height: 5px"></div>
+                    <button class="w-100 btn btn-lg btn-danger" type="submit" name="submit" value="close_link">Закрыть доступ</button>
+                                        </form>
+                {% else %}
+                    <form action="" method="POST">
+                        <button class="w-100 btn btn-lg btn-success" type="submit" name="submit" value="open_link">Открыть доступ</button>
+                    </form>
+                {% endif %}
+
+        </div>
+            <div class="col-4">
                 {% if news_deleted %}
-                    <div class="alert alert-success" role="alert" id="successAlert">
+                    <div class="alert alert-success" role="alert">
                           Все новости удалены.
                     </div>
                 {% endif %}
             <h3>Очистка новостей и выход:</h3>
-            <form method='post' id="rest_get" name="rest_get">
-                <button class="w-100 btn btn-lg btn-danger" type="submit" value="delete_news" name="submit">Удалить все новости</button>
+            <form method='post' name="rest_get">
+                <button class="w-100 btn btn-lg btn-danger" type="submit" value="delete_news" name="submit">Удалить все задачи</button>
             </form>
             <div style="height: 5px"></div>
-            <form action="" method="POST" id="rest_delete">
+            <form action="" method="POST">
                 <button class="w-100 btn btn-lg btn-warning" type="submit" name="submit" value="exit">Выход</button>
             </form>
         </div>
     </div>
     </main>
-
 {% endblock %}

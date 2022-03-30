@@ -3,7 +3,7 @@ import random
 import string
 
 from flask import Flask, render_template, redirect, send_from_directory, \
-    request
+    request, abort
 
 from flask_login import LoginManager, login_required, login_user, logout_user, \
     current_user
@@ -34,6 +34,33 @@ api.add_resource(tasks_resources.TaskResource, '/api/tasks/<int:task_id>')
 
 login_manager = LoginManager()
 login_manager.init_app(app)
+
+
+def collect_groups(user_id):
+    db_sess = db_session.create_session()
+    user_tasks = db_sess.query(Task).filter(Task.user_id == user_id,
+                                            Task.status == 0)
+
+    groups = {
+        'important_urgent': [],
+        'non_important_urgent': [],
+        'important_non_urgent': [],
+        'non_important_non_urgent': []
+    }
+
+    for t in user_tasks:
+        if t.is_urgent:
+            if t.is_important:
+                groups['important_urgent'].append([t.id, t.name])
+            else:
+                groups['non_important_urgent'].append([t.id, t.name])
+        else:
+            if t.is_important:
+                groups['important_non_urgent'].append([t.id, t.name])
+            else:
+                groups['non_important_non_urgent'].append([t.id, t.name])
+
+    return groups
 
 
 @login_manager.user_loader
@@ -69,28 +96,8 @@ class TaskForm(FlaskForm):
 @app.route('/')
 def index():
     if current_user.is_authenticated:
-        db_sess = db_session.create_session()
-        user_tasks = db_sess.query(Task).filter(Task.user_id == current_user.id,
-                                                Task.status == 0)
 
-        groups = {
-            'important_urgent': [],
-            'non_important_urgent': [],
-            'important_non_urgent': [],
-            'non_important_non_urgent': []
-        }
-
-        for t in user_tasks:
-            if t.is_urgent:
-                if t.is_important:
-                    groups['important_urgent'].append([t.id, t.name])
-                else:
-                    groups['non_important_urgent'].append([t.id, t.name])
-            else:
-                if t.is_important:
-                    groups['important_non_urgent'].append([t.id, t.name])
-                else:
-                    groups['non_important_non_urgent'].append([t.id, t.name])
+        groups = collect_groups(current_user.id)
 
         return render_template('index.html', groups=groups)
     else:
@@ -139,6 +146,26 @@ def settings():
 
             db_sess.commit()
             return render_template('settings.html', news_deleted=True)
+
+        elif request.form['submit'] == 'close_link':
+            db_sess = db_session.create_session()
+
+            user = current_user.id
+            user = db_sess.query(User).filter(User.id == user).first()
+            user.link_status = False
+
+            db_sess.commit()
+            return redirect('/settings')
+
+        elif request.form['submit'] == 'open_link':
+            db_sess = db_session.create_session()
+
+            user = current_user.id
+            user = db_sess.query(User).filter(User.id == user).first()
+            user.link_status = True
+
+            db_sess.commit()
+            return redirect('/settings')
 
         else:
             return redirect('/logout')
@@ -199,6 +226,21 @@ def task(task_id):
         status = f'это {"важно" if task_to_file.is_important else "не важно"}' \
                  f' и {"срочно" if task_to_file.is_urgent else "не срочно"}'
         return render_template('task.html', task=task_to_file, status=status)
+    return redirect('/')
+
+
+@app.route('/users/<int:user_id>')
+def user(user_id):
+    db_sess = db_session.create_session()
+    user = db_sess.query(User).filter(User.id == user_id).first()
+
+    if not user:
+        return redirect('/')
+
+    if user.link_status:
+        groups = collect_groups(user_id)
+        return render_template('index.html', groups=groups)
+
     return redirect('/')
 
 

@@ -16,6 +16,8 @@ class User(SqlAlchemyBase, UserMixin, SerializerMixin):
     hashed_password = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     tokens = sqlalchemy.Column(sqlalchemy.String, nullable=True)
 
+    link_status = sqlalchemy.Column(sqlalchemy.Boolean, default=True)
+
     tasks = orm.relation("Task", back_populates='user')
 
     def set_password(self, password):

@@ -35,6 +35,24 @@
 }
 
 .vertical-text {
+    margin-top: 500%;
+    margin-left: 50%;
+
   transform: rotate(270deg);
   transform-origin: left top 0;
+}
+.verticaltext{
+
+    margin-left: 90%;
+     width:1px;
+     word-wrap: break-word;
+     white-space:pre-wrap;
+  }
+
+.margin-not-urg {
+  margin-top: 85%;
+}
+
+.margin-urg {
+  margin-top: 150%;
 }

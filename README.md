@@ -2,4 +2,6 @@
 
 Чтобы посчитать строки
 
-`string_counter.py --> 517 строк`
+`string_counter.py --> 564 строки`
+
+## Heroku: https://flask-eisenhower-matrix.herokuapp.com/

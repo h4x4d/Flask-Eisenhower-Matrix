@@ -10,4 +10,4 @@ for i in f:
         strings += len(open(i, encoding='UTF-8').readlines())
 
 print(strings)
-# 517
+# 564
