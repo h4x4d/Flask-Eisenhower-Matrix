@@ -56,6 +56,9 @@
             {% endfor %}
         </p>
         <p>
+                <div class="alert alert-danger" role="alert">
+                    Файловая загрузка не работает на бесплатном тарифе heroku.
+                </div>
             <div class="input-group mb-3">
               <label class="input-group-text" for="inputGroupFile01">{{ form.file.label }}</label>
                 {{ form.file(class="form-control", type="file") }}
